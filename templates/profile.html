@@ -1,0 +1,324 @@
+{% extends "base.html" %} {% block extra_head %}
+<script src="{{ url_for('static', filename='js/character-viewer.js') }}"></script>
+{% endblock %} {% block title %}Profile{% endblock %} {% block content %}
+<div class="profile-grid">
+  <div class="profile-section">
+    <h2>Profile Information</h2>
+    <div class="info-content">
+      <div class="info-row">
+        <label>Username:</label>
+        <span>{{ current_user.username }}</span>
+      </div>
+      <div class="info-row">
+        <label>Email:</label>
+        <span>{{ current_user.email }}</span>
+      </div>
+      <div class="info-row">
+        <label>Account Level:</label>
+        <span
+          >{% if current_user.gmlevel > 0 %}Game Master{% else %}Player{% endif
+          %}</span
+        >
+      </div>
+    </div>
+
+    <div class="account-options">
+      <h3>Account Options</h3>
+      <div class="options-buttons">
+        <button class="option-button" onclick="showChangePassword()">
+          Change Password
+        </button>
+        <button class="option-button" onclick="showChangeEmail()">
+          Change Email
+        </button>
+      </div>
+
+      <form
+        id="change-password-form"
+        class="change-form"
+        style="display: none"
+        method="POST"
+        action="{{ url_for('change_password') }}"
+      >
+        <div class="form-group">
+          <label for="current_password">Current Password:</label>
+          <input
+            type="password"
+            id="current_password"
+            name="current_password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="new_password">New Password:</label>
+          <input
+            type="password"
+            id="new_password"
+            name="new_password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Confirm New Password:</label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            required
+          />
+        </div>
+        <div class="form-buttons">
+          <button type="submit">Update Password</button>
+          <button
+            type="button"
+            class="cancel-button"
+            onclick="hideChangePassword()"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+
+      <form
+        id="change-email-form"
+        class="change-form"
+        style="display: none"
+        method="POST"
+        action="{{ url_for('change_email') }}"
+      >
+        <div class="form-group">
+          <label for="new_email">New Email:</label>
+          <input type="email" id="new_email" name="new_email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-buttons">
+          <button type="submit">Update Email</button>
+          <button
+            type="button"
+            class="cancel-button"
+            onclick="hideChangeEmail()"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="character-viewer">
+    <h2>Character Viewer</h2>
+
+    <div class="character-select">
+      <select id="character-select" class="character-dropdown">
+        <option value="">Select a character</option>
+        {% for character in characters %}
+        <option value="{{ character.guid }}">
+          {{ character.name }} (Level {{ character.level }} {{ character.race
+          }}/{{ character.class }})
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="character-display">
+      <div class="placeholder-text">
+        Select a character to view their details
+      </div>
+
+      <div id="character-info" style="display: none">
+        <div class="equipment-layout">
+          <div class="equipment-column left-slots">
+            <div class="equipment-slot" data-slot="0">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="1">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="2">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="3">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="4">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="8">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="14">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="18">
+              <div class="slot-inner"></div>
+            </div>
+          </div>
+          <div class="character-model">
+            <canvas id="character-canvas"></canvas>
+          </div>
+          <div class="equipment-column right-slots">
+            <div class="equipment-slot" data-slot="5">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="6">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="7">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="9">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="10">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="11">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="12">
+              <div class="slot-inner"></div>
+            </div>
+            <div class="equipment-slot" data-slot="13">
+              <div class="slot-inner"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-slots">
+          <div class="equipment-slot" data-slot="15">
+            <div class="slot-inner"></div>
+          </div>
+          <div class="equipment-slot" data-slot="16">
+            <div class="slot-inner"></div>
+          </div>
+          <div class="equipment-slot" data-slot="17">
+            <div class="slot-inner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const characterSelect = document.getElementById("character-select");
+    const characterInfo = document.getElementById("character-info");
+    const placeholderText = document.querySelector(".placeholder-text");
+    const viewer = new CharacterViewer("character-canvas");
+
+    characterSelect.addEventListener("change", function () {
+      const selectedCharId = this.value;
+      if (selectedCharId) {
+        // Show character info and hide placeholder
+        characterInfo.style.display = "block";
+        placeholderText.style.display = "none";
+
+        // Get the selected option's text content
+        const selectedOption = this.options[this.selectedIndex];
+        const match = selectedOption.text.match(/Level \d+ ([^/]+)\/([^(]+)/);
+        if (match) {
+          const [_, race, characterClass] = match;
+          // Update the cube color based on class
+          viewer.loadCharacter(race.trim(), characterClass.trim());
+        }
+
+        // Fetch and update equipment
+        updateEquipment(selectedCharId);
+      } else {
+        // Show placeholder and hide character info if no character is selected
+        characterInfo.style.display = "none";
+        placeholderText.style.display = "block";
+      }
+    });
+
+    // Function to update equipment slots
+    function updateEquipment(characterId) {
+      console.log("Fetching equipment for character:", characterId);
+      fetch(`/api/character/${characterId}/equipment`)
+        .then((response) => {
+          console.log("Response status:", response.status);
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Received equipment data:", data);
+          // Clear all equipment slots first
+          document.querySelectorAll(".equipment-slot").forEach((slot) => {
+            slot.innerHTML = '<div class="slot-inner"></div>';
+            slot.className = "equipment-slot"; // Reset classes
+          });
+
+          if (!Array.isArray(data)) {
+            console.error("Expected array of equipment, got:", data);
+            return;
+          }
+
+          // Update slots with equipment data
+          data.forEach((item) => {
+            console.log("Processing item:", item);
+            const slot = document.querySelector(`[data-slot="${item.slot}"]`);
+            if (slot) {
+              const itemElement = document.createElement("div");
+              itemElement.className = `slot-inner item ${getQualityClass(
+                item.quality
+              )}`;
+
+              // Create img element for the icon
+              const iconImg = document.createElement("img");
+              iconImg.src = `/static/images/placeholders/inv_misc_questionmark.png`; // Default to placeholder
+              iconImg.className = "item-icon";
+
+              // Add tooltip with item info
+              itemElement.title = `${item.name}\nItem Level: ${item.item_level}\nRequired Level: ${item.required_level}`;
+
+              itemElement.appendChild(iconImg);
+              slot.innerHTML = ""; // Clear the slot
+              slot.appendChild(itemElement);
+            } else {
+              console.warn("No slot found for item:", item);
+            }
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching equipment:", error);
+        });
+    }
+
+    // Helper function to get quality class
+    function getQualityClass(quality) {
+      const qualityMap = {
+        0: "poor",
+        1: "common",
+        2: "uncommon",
+        3: "rare",
+        4: "epic",
+        5: "legendary",
+        6: "artifact",
+        7: "heirloom",
+      };
+      return qualityMap[quality] || "common";
+    }
+  });
+
+  // Password and email form functions
+  function showChangePassword() {
+    document.getElementById("change-password-form").style.display = "block";
+    document.getElementById("change-email-form").style.display = "none";
+  }
+
+  function hideChangePassword() {
+    document.getElementById("change-password-form").style.display = "none";
+  }
+
+  function showChangeEmail() {
+    document.getElementById("change-email-form").style.display = "block";
+    document.getElementById("change-password-form").style.display = "none";
+  }
+
+  function hideChangeEmail() {
+    document.getElementById("change-email-form").style.display = "none";
+  }
+</script>
+{% endblock %}

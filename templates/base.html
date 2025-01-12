@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - MaNGOS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Three.js and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="grid-container">
+        <header>
+            <div class="left-links">
+                <a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>HOME</a>
+                <a href="{{ url_for('about') }}" {% if request.endpoint == 'about' %}class="active"{% endif %}>ABOUT US</a>
+            </div>
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/mangos-logo.png') }}" alt="MaNGOS Logo" />
+            </div>
+            <div class="right-links">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile') }}" {% if request.endpoint == 'profile' %}class="active"{% endif %}>PROFILE</a>
+                <a href="{{ url_for('logout') }}">LOGOUT</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" {% if request.endpoint == 'login' %}class="active"{% endif %}>LOGIN</a>
+                <a href="{{ url_for('register') }}" {% if request.endpoint == 'register' %}class="active"{% endif %}>REGISTER</a>
+                {% endif %}
+            </div>
+        </header>
+
+        <main class="home-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+
+            {% if not current_user.is_authenticated and request.endpoint == 'index' %}
+            <div class="cta-section">
+                <h2>Ready to Join?</h2>
+                <p>Create your account now and start your adventure!</p>
+                <a href="{{ url_for('register') }}" class="cta-button">Register Now</a>
+            </div>
+            {% endif %}
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="https://github.com/mangos/MaNGOS" target="_blank">
+                    <img src="{{ url_for('static', filename='images/github-icon.png') }}" alt="GitHub" />
+                    GitHub
+                </a>
+                <a href="https://www.getmangos.eu" target="_blank">
+                    <img src="{{ url_for('static', filename='images/mangos-icon.png') }}" alt="MaNGOS" />
+                    Official Website
+                </a>
+                <a href="https://discord.gg/Uyf8Djr" target="_blank">
+                    <img src="{{ url_for('static', filename='images/discord-icon.png') }}" alt="Discord" />
+                    Discord
+                </a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 MaNGOS Server. All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html> 

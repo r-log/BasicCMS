@@ -1,0 +1,858 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: url('../images/bg.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 28, 44, 0.75) 0%, rgba(42, 44, 60, 0.75) 100%);
+    z-index: -1;
+}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    margin: 8.5rem 0 5rem 0;
+    background: url('../images/header-full-final-photoshop.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 1);
+    position: relative;
+    height: 70px;
+    width: 100%;
+    overflow: visible;
+    min-width: 600px;
+}
+
+header::before {
+    display: none;
+}
+
+.left-links,
+.right-links,
+.logo-container {
+    position: relative;
+    z-index: 2;
+}
+
+.left-links,
+.right-links {
+    z-index: 2;
+    display: flex;
+    gap: 2rem;
+}
+
+.left-links {
+    margin-left: 4rem;
+}
+
+.right-links {
+    margin-right: 4rem;
+}
+
+.logo-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    max-width: 450px;
+    margin-top: -40px;
+}
+
+.logo-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: scale(1.15);
+}
+
+header a {
+    color: black;
+    text-decoration: none;
+    font-family: 'Neela Demo', sans-serif;
+    font-weight: 1;
+    font-size: 1rem;
+    padding: 0.3rem 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+header a:hover {
+    font-weight: bold;
+}
+
+header a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background-color: black;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* News Content */
+.news-content {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.news-item {
+    margin-bottom: 2rem;
+}
+
+.news-item:last-child {
+    margin-bottom: 0;
+}
+
+.news-item h2 {
+    color: rgb(161, 117, 16);
+    font-family: 'Neela Demo', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.news-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.news-item p {
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Realm List */
+.realm-status {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    padding: 1.5rem;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.realm-list {
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+.realm-item {
+    display: grid;
+    grid-template-columns: minmax(140px, 1fr) 80px 60px;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(161, 117, 16, 0.3);
+    align-items: center;
+}
+
+.realm-item:hover {
+    background: rgba(161, 117, 16, 0.1);
+}
+
+.realm-item:last-child {
+    border-bottom: none;
+}
+
+.realm-name-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.realm-type {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.realm-type img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.realm-name {
+    color: rgb(161, 117, 16);
+    font-weight: bold;
+    font-family: 'Neela Demo', sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.realm-pop {
+    color: #ffffff;
+    font-weight: 400;
+    text-align: right;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    letter-spacing: 0.5px;
+    width: 80px;
+    padding-right: 1rem;
+}
+
+.status-section {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-dot.online {
+    background-color: #33ff33;
+    box-shadow: 0 0 4px #33ff33;
+}
+
+.status-dot.offline {
+    background-color: #666666;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Auth Form */
+.auth-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgb(161, 117, 16);
+    font-family: 'Neela Demo', sans-serif;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: rgb(161, 117, 16);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(161, 117, 16, 0.8);
+    color: white;
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background: rgba(161, 117, 16, 1);
+    transform: translateY(-2px);
+}
+
+/* Flash Messages */
+.flash-message {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+}
+
+.flash-message.error {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    color: #ff3b30;
+}
+
+.flash-message.success {
+    background: rgba(52, 199, 89, 0.1);
+    border: 1px solid rgba(52, 199, 89, 0.3);
+    color: #34c759;
+}
+
+/* Auth Links */
+.auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(161, 117, 16, 0.3);
+}
+
+.auth-links a {
+    color: rgb(161, 117, 16);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Section */
+.profile-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.profile-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgb(161, 117, 16);
+    font-family: 'Neela Demo', sans-serif;
+}
+
+.profile-info {
+    margin-top: 2rem;
+}
+
+.info-content {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(161, 117, 16, 0.2);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row label {
+    font-weight: 600;
+    color: rgb(161, 117, 16);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.info-row span {
+    color: #ffffff;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.admin-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(161, 117, 16, 0.3);
+}
+
+.admin-section h3 {
+    color: rgb(161, 117, 16);
+    margin-bottom: 1rem;
+    font-family: 'Neela Demo', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.admin-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: rgba(161, 117, 16, 0.8);
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.admin-button:hover {
+    background: rgba(161, 117, 16, 1);
+    transform: translateY(-2px);
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+}
+
+.cta-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgb(161, 117, 16);
+    font-family: 'Neela Demo', sans-serif;
+}
+
+.cta-section p {
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: rgba(161, 117, 16, 0.8);
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background: rgba(161, 117, 16, 1);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(161, 117, 16, 0.3);
+    margin-top: 2rem;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: rgb(161, 117, 16);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-links a:hover {
+    color: #ffd700;
+    transform: translateY(-2px);
+}
+
+.footer-links img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .grid-container {
+        padding: 0 15px;
+    }
+
+    header {
+        flex-direction: row;
+        padding: 1rem;
+        margin-top: 8rem;
+        min-width: unset;
+        width: 100%;
+    }
+
+    .left-links,
+    .right-links {
+        justify-content: center;
+        margin: 0;
+        gap: 1rem;
+    }
+
+    .logo-container {
+        margin-top: -80px;
+        max-width: 350px;
+    }
+
+    header a {
+        font-size: 0.9rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .realm-status {
+        order: -1;
+    }
+}
+
+/* Profile Grid Layout */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    align-items: start;
+}
+
+/* Profile Section */
+.profile-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+/* Character Viewer Container */
+.character-viewer {
+    background-color: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(74, 74, 74, 0.6);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.character-viewer h2 {
+    color: #ffd100;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Neela Demo', sans-serif;
+}
+
+/* Character Selection Dropdown */
+.character-select {
+    width: 100%;
+    margin-bottom: 20px;
+    z-index: 10;
+    position: relative;
+}
+
+.character-dropdown {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(74, 74, 74, 0.6);
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.character-dropdown:hover {
+    border-color: #ffd100;
+}
+
+.character-dropdown option {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Character Display Area */
+.character-display {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.placeholder-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+}
+
+/* Equipment Layout */
+.equipment-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.equipment-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 50px;
+    flex-shrink: 0;
+}
+
+/* Character Model */
+.character-model {
+    width: 400px;
+    height: 400px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(74, 74, 74, 0.4);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    margin: 0 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+#character-canvas {
+    width: 400px !important;
+    height: 400px !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Equipment Slots */
+.equipment-slot {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(74, 74, 74, 0.6);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.slot-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.item-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Bottom Equipment Slots */
+.bottom-slots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* Item Styles */
+.item {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Item Quality Colors */
+.item.poor {
+    border: 1px solid #9d9d9d;
+}
+
+.item.common {
+    border: 1px solid #ffffff;
+}
+
+.item.uncommon {
+    border: 1px solid #1eff00;
+}
+
+.item.rare {
+    border: 1px solid #0070dd;
+}
+
+.item.epic {
+    border: 1px solid #a335ee;
+}
+
+.item.legendary {
+    border: 1px solid #ff8000;
+}
+
+.item.artifact {
+    border: 1px solid #e6cc80;
+}
+
+.item.heirloom {
+    border: 1px solid #00ccff;
+}
+
+/* Tooltip Styles */
+[title] {
+    position: relative;
+}
+
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: pre;
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* About Page */
+.about-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(161, 117, 16, 0.3);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.about-card h2 {
+    color: rgb(161, 117, 16);
+    font-family: 'Neela Demo', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.about-card p {
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.about-card p:last-child {
+    margin-bottom: 0;
+}

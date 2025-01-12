@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+<div class="content-grid">
+  <div class="news-content">
+    <div class="news-item">
+      <h2>HAPPY HOLIDAYS</h2>
+      <p class="news-date">December 25, 2024</p>
+      <p>
+        The MaNGOS team wishes everyone happy holidays! Join us for special
+        winter events and double XP weekend.
+      </p>
+    </div>
+  </div>
+
+  <div class="realm-status">
+    <div class="realm-list">
+      {% for realm in realms %}
+      <div class="realm-item">
+        <div class="realm-name-section">
+          <span class="realm-type {{ realm.type.lower() }}">
+            <img
+              src="{{ url_for('static', filename='images/' + realm.type.lower() + '-icon.png') }}"
+              alt="{{ realm.type }}"
+            />
+          </span>
+          <span class="realm-name">{{ realm.name }}</span>
+        </div>
+        <span class="realm-pop">{{ realm.population }}</span>
+        <span
+          class="status-dot {{ 'online' if realm.status else 'offline' }}"
+        ></span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
