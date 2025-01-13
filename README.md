@@ -118,15 +118,6 @@ Available in development mode:
 - 🔍 `/debug/character-info`
 - 🔍 `/debug/database-info`
 
-## 🗺️ Roadmap
-
-- [ ] Character Creation Interface
-- [ ] Full 3D Model Viewer
-- [ ] Inventory Management
-- [ ] Talent Calculator
-- [ ] Achievement System
-- [ ] Guild Management
-
 ## 🤝 Contributing
 
 Contributions are what make the open source community amazing! Any contributions you make are **greatly appreciated**.
